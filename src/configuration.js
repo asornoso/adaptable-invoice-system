@@ -29,7 +29,7 @@ const configuration = {
   //
   //An invoice class is included by default. View the contents as an example
   data: [
-    "./classes/DefaultInvoice.js",
+    "./templates/DefaultInvoice.js",
   ],
   //Path to your firebase configuration file
   firebaseConfigPath: "./firebaseConfig.js"

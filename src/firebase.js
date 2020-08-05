@@ -1,17 +1,13 @@
-import React from 'react'
 import app from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/firestore'
 import {v4 as uuidv4} from 'uuid'
-// import config from './firebaseConfig.js'
 import configuration from './configuration.js'
 
 
 
 class Firebase {
   constructor(){
-    console.log(configuration.firebaseConfigPath)
-
     import( `${configuration.firebaseConfigPath}` ).then( config => {
         app.initializeApp(config.default)
         this.app = app
