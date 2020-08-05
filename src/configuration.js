@@ -7,13 +7,13 @@ const configuration = {
   companyInfo: {
     brand: {
       name: "Adaptive Invoicing System",
-      logo: "./logo.png",
+      logo: "logo.png", //Logo should be placed in /src/resources
       slogan: "The best invoicing system"
     },
     //The contact object includes data relevant to your company or business.
     //If
     contact: {
-      address: "1234 This is an address",
+      address: "1234 address, city zipcode",
       phone: "(123) 456-7890",
       fax: "1234567890",
       website: "www.thisismysite.com"

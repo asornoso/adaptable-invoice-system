@@ -17,22 +17,6 @@ class Firebase {
 
   }
 
-  createUser = (email, password, name='user') => {
-    return new Promise(( res, rej) => {
-      this.auth.createUserWithEmailAndPassword(email, password)
-      .then( (result) => {
-        this.createSession(email, result.user.uid, result.user.displayName)
-        this.createDefaultFolder( result.user.uid)
-        result.user.updateProfile({
-          displayName: name
-        }).then( (result2) => {
-          res(result)
-        })
-      }).catch( (error) => {
-        rej(error)
-      })
-    })
-  }
 
   signIn = (email, password) => {
     return new Promise (( res, rej) => {
@@ -50,13 +34,6 @@ class Firebase {
      this.removeSession()
   }
 
-  sendPasswordReset = email => this.auth.sendPasswordResetEmail(email);
-
-  createDefaultFolder = ( uid) => {
-    return new Promise(( res, rej ) => {
-      this.createFolder('My first folder', uid).then( (result) => res(result))
-    })
-  }
 
   createFolder = (name, uid) => {
     return new Promise( (res, rej) => {
@@ -152,9 +129,7 @@ class Firebase {
     sessionStorage.setItem('name', name)
   }
 
-  removeSession= () => {
-    sessionStorage.clear()
-  }
+  removeSession= () => sessionStorage.clear()
 
 }
 

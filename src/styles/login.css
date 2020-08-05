@@ -1,0 +1,108 @@
+.login .full-page{
+  width:100vw;
+  height:100vh;
+  min-height:920px;
+}
+
+.login .grid-container{
+  display: grid;
+  grid-template-columns: 10%  80%  10%;
+  grid-template-rows: 7% 45% 10% 38%;
+}
+
+
+.signup .back-button{
+  justify-self: center;
+  align-self: center;
+  grid-column-start: 1;
+  grid-column-end: 2;
+  grid-row-start: 1;
+  grid-row-end: 2;
+}
+
+
+
+.login .logo-container{
+  justify-self: center;
+  align-self: center;
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 2;
+  grid-row-end: 3;
+}
+
+.login .logo{
+  height: 28rem;
+  width: auto;
+  max-height:650px;
+}
+
+
+.login .title {
+  font-weight:300;
+  font-size: 3rem;
+  justify-self: center;
+  align-self: center;
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 3;
+  grid-row-end: 4;
+}
+
+.login .form{
+  justify-self: center;
+  align-self: top;
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 4;
+  grid-row-end: 5;
+}
+
+
+
+
+@media only screen and (max-width: 900px){
+
+  .login .logo{
+    height: 25rem;
+    width: auto;
+    max-height:350px;
+  }
+
+  .login .title {
+    font-weight:500;
+    font-size: 1.8rem;
+  }
+
+}
+
+@media only screen and (max-width: 700px){
+  .login .logo{
+    height: 20rem;
+    width: auto;
+    max-height:350px;
+  }
+
+  .login .title {
+    font-weight:500;
+    font-size: 1.5rem;
+  }
+}
+
+@media only screen and (max-width: 500px){
+  .login .grid-container{
+    display: grid;
+    grid-template-columns: 10%  80%  10%;
+    grid-template-rows: 10% 35% 10% 45%;
+  }
+  .login .logo{
+    height: 12rem;
+    width: auto;
+    max-height:350px;
+  }
+
+  .login .title {
+    font-weight:500;
+    font-size: 1.1rem;
+  }
+}

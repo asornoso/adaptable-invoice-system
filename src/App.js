@@ -4,7 +4,6 @@ import CustomContext from './customContext.js'
 import Firebase from './firebase.js'
 
 import LoginPage from './pages/LoginPage'
-import SignupPage from './pages/SignupPage'
 import SearchPage from './pages/SearchPage'
 import CreatePage from './pages/CreatePage'
 import ViewPage from './pages/ViewPage'
@@ -47,7 +46,6 @@ function App() {
       <HashRouter>
         <UserContext.Provider>
           <Route exact path='/' component={LoginPage}/>
-          <Route exact path='/signup' component={SignupPage}/>
           <Route exact path='/search' component={SearchPage}/>
           <Route exact path='/create' component={CreatePage}/>
           <Route exact path='/view' component={ViewPage}/>
