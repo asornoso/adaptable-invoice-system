@@ -10,17 +10,13 @@ import React from 'react'
   Notice the configuration file is imported for the layout, for company details
 */
 
-const DefaultInvoice = {
+const Invoice2 = {
 
-    //Name of object, case sensitive, spaces OK
-    name : "Default Invoice",
+  //Name of object, case sensitive, spaces OK
+    name : "Invoice2",
 
 
     structure: {
-      customer: {
-        name: 'string',
-        id: 'string',
-      },
       purchase: {
         date: 'timestamp',
         purchase_id: 'string',
@@ -38,8 +34,8 @@ const DefaultInvoice = {
     layout: (props) => {
       return (
         <div key={props.id}>
-          hello this is my layout <br/>
-          {props.customer.name} bought ${props.purchase.amount} on {props.purchase.date}
+          hello this is my layout for invoice 2 <br/>
+          you bought ${props.purchase.amount} on {props.purchase.date}
         </div>
       )
     }
@@ -47,4 +43,4 @@ const DefaultInvoice = {
 }
 
 
-export default DefaultInvoice
+export default Invoice2

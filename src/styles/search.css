@@ -1,0 +1,75 @@
+.base-container{
+  width:100vw;
+  height:100vh;
+  min-height:920px;
+
+  display: grid;
+  grid-template-columns: 10% 80% 10%;
+  grid-template-rows: 10% 90%;
+}
+
+.logo-container{
+  justify-self: center;
+  align-self: center;
+  grid-column-start: 1;
+  grid-column-end: 2;
+  grid-row-start: 1;
+  grid-row-end: 2;
+}
+
+.logo{
+  width: auto;
+  height: 5.5rem;
+}
+
+.search-container{
+  justify-self: center;
+  align-self: center;
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 1;
+  grid-row-end: 2;
+
+  display:grid;
+  grid-template-columns: 80% 20%;
+  grid-template-rows: 100%;
+}
+
+.search-container .logo {
+  justify-self: center;
+  align-self: center;
+  grid-column-start: 1;
+  grid-column-end: 2;
+  grid-row-start: 1;
+  grid-row-end: 2;
+}
+
+.search-container .search-button{
+  justify-self: center;
+  align-self: center;
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 1;
+  grid-row-end: 2;
+}
+
+
+
+.search-container{
+  justify-self: center;
+  align-self: center;
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 1;
+  grid-row-end: 2;
+}
+
+
+.records{
+  justify-self: center;
+  align-self: center;
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 2;
+  grid-row-end: 3;
+}

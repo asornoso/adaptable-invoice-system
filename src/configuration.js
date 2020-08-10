@@ -22,14 +22,14 @@ const configuration = {
   //The data javascript object contains a list paths to ES6 classes that serve
   // as models for the forms and layouts of any records.
   //
-  //To create your own data model, your class must include the function listed:
-  //dataModel --> returns a javascript object of structured data
-  //layoutModel --> returns a react component that renders your data as needed
-  //name --> returns the name of this type of data model(Invoice 1, etc)
+  //To create your own data model, your object must include the following properties:
+  //name --> Name of this type of data model(Invoice, Incident Report,  B2B Invoice, etc)
+  //structure --> an object that contains all the data this record uses/stores
+  //layout --> a function that returns a react component that renders your data as needed
   //
-  //An invoice class is included by default. View the contents as an example
-  data: [
-    "./templates/DefaultInvoice.js",
+  //An invoice object is included by default. View the contents as an example
+  templates: [
+    "DefaultInvoice.js", "Invoice2.js",
   ],
   //Path to your firebase configuration file
   firebaseConfigPath: "./firebaseConfig.js"

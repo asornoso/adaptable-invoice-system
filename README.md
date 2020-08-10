@@ -17,9 +17,8 @@ It also has a default Invoice Model.
 ### Record Templates
 
 This system is expandable(adaptable) to various record types. In order to add your own
-custom template, create a new ES6 class that contains functions that return the structure
-of your data, the name of your data(invoice, bill, receipt, work order, etc), and a
-react component layout to view the data in your record.
+custom template, create a new javascript object that contains the properties that
+contain your data structure, the name of your data(invoice, bill, receipt, work order, etc), and a function that returns a react component layout to view the data in your record.
 <br/><br/>
 See the default template in `src/templates/DefaultInvoice.js` for an example.
 

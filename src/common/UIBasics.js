@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {NavLink} from "react-router-dom"
 import './UIBasics.css'
 
@@ -39,4 +39,29 @@ const FloatingButton = (props) => {
   )
 }
 
-export { Button, Input, FloatingButton}
+
+const Dropdown = (props) => {
+
+  const size = props.size ? props.size : 'medium'
+  const [selected, setSelected] = useState(0)
+
+  return (
+    <div className={`dropdown dropdown-${size}`}>
+      <select  value={selected} onChange={
+        (e) => {
+          setSelected(e.target.value)
+          props.onChange(e.target.value)
+        }
+      }>
+        {
+          props.options.map((text, i) =>{
+             return <option key={text+i} value={i}> {text} </option>
+          })
+        }
+      </select>
+    </div>
+  )
+
+}
+
+export { Button, Input, FloatingButton, Dropdown}

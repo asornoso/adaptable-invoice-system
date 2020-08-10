@@ -4,7 +4,7 @@ import CustomContext from './customContext.js'
 import Firebase from './firebase.js'
 
 import LoginPage from './pages/LoginPage'
-import SearchPage from './pages/SearchPage'
+import {SearchPage} from './pages/SearchPage'
 import CreatePage from './pages/CreatePage'
 import ViewPage from './pages/ViewPage'
 
