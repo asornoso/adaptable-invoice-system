@@ -7,7 +7,7 @@ const Button = ( props ) => {
   const size = props.size ? props.size : 'medium'
 
   return (
-    <div className={`button button-${size}`}>
+    <div className={`button button-${size}`} style={props.style}>
         {
           props.to ?
             <NavLink to={props.to}>{props.text.toUpperCase()}</NavLink>

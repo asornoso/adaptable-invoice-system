@@ -24,7 +24,6 @@ const configuration = {
   //
   //To create your own data model, your object must include the following properties:
   //name --> Name of this type of data model(Invoice, Incident Report,  B2B Invoice, etc)
-  //structure --> an object that contains all the data this record uses/stores
   //layout --> a function that returns a react component that renders your data as needed
   //
   //An invoice object is included by default. View the contents as an example

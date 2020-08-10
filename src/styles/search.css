@@ -73,3 +73,23 @@
   grid-row-start: 2;
   grid-row-end: 3;
 }
+
+
+table{
+  border: solid black 1px;
+
+}
+
+.header .table-cell{
+  background-color: #e0e0e0  ;
+}
+
+.table-cell{
+  border: solid black 1px;
+  padding: 0.5rem;
+
+}
+
+.table-cell.odd{
+  background-color: #eeeeee   ;
+}

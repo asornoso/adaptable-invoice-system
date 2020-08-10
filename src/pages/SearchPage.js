@@ -48,6 +48,7 @@ const SearchPage = () => {
         </div>
 
         <div className="search-container">
+
           <Input name="search" type="text" size="large" />
           <div className="search-button">
             <FloatingButton type="search" size='medium'/>
@@ -67,5 +68,5 @@ const SearchPage = () => {
   )
 }
 
-
-export {SearchPage,  RecordContext }
+export {RecordContext }
+export default SearchPage

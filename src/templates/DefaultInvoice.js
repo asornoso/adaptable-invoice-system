@@ -1,29 +1,28 @@
 import React from 'react'
-
+import {v4 as uuidv4} from 'uuid'
 /*
-  Valid data types:
-    string
-    number
-    timestamp
-    arrays/objects
-
   Notice the configuration file is imported for the layout, for company details
 */
 
 const DefaultInvoice = {
 
-    //Name of object, case sensitive, spaces OK
+    //Name of template, human readable form
+    //Should match file name, with exception of spaces/whitespace
     name : "Default Invoice",
 
-
-    structure: {
+    //all the fields that need to exist in order to create this record
+    //Valid types:
+    //string, number, date,
+    //Sub arrays and sub objects are valid
+    creation:{
+      id: 'number',
       customer: {
         name: 'string',
-        id: 'string',
+        id: 'number',
       },
       purchase: {
-        date: 'timestamp',
-        purchase_id: 'string',
+        date: 'date',
+        id: 'number',
         amount: 'number',
         items: [
           {
@@ -34,11 +33,10 @@ const DefaultInvoice = {
       }
     },
 
-
     layout: (props) => {
       return (
-        <div key={props.id}>
-          hello this is my layout <br/>
+        <div key={uuidv4()}>
+          hello this is my layout for default invoice<br/>
           {props.customer.name} bought ${props.purchase.amount} on {props.purchase.date}
         </div>
       )

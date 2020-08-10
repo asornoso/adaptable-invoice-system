@@ -1,26 +1,38 @@
-import React, {useState, useEffect } from 'react'
-import { Dropdown} from "../common/UIBasics.js"
-import configuration from '../configuration.js'
+import React, {useState, useEffect,  } from 'react'
+import {NavLink} from 'react-router-dom'
+import { Dropdown, Button} from "../common/UIBasics.js"
 import {RecordContext} from '../pages/SearchPage.js'
+import {UserContext} from '../App.js'
+import {v4 as uuidv4} from 'uuid'
+import RecordParser from './RecordParser.js'
 
-
-const readTemplateFiles = (loc) => {
-    let files = configuration.templates
-    let templates = []
-
-    for(let i = 0; i < files.length; i++){
-      let jsobj = require(`../templates/${files[i]}`).default
-      templates.push(jsobj)
-    }
-    return templates
-}
 
 const fetchRecords = (type) => {
   if(type === 'Default Invoice')
   {
     return [
       {
+        sys_info_record_type: 'Default Invoice',
         id: '123456789',
+        customer: {
+          name: 'name1',
+          id: '12345',
+        },
+        purchase: {
+          date: Date.now(),
+          purchase_id: '123456',
+          amount: 50.50,
+          items: [
+            {
+              name: 'chair',
+              price: 50.50
+            }
+          ]
+        }
+      },
+      {
+        sys_info_record_type: 'Default Invoice',
+        id: '12345691',
         customer: {
           name: 'name1',
           id: '12345',
@@ -42,17 +54,17 @@ const fetchRecords = (type) => {
   else{
     return [
       {
-        purchase: {
-          date: Date.now(),
-          purchase_id: '123457',
-          amount: 50.50,
-          items: [
-            {
-              name: 'chair',
-              price: 50.50
-            }
-          ]
-        }
+        sys_info_record_type: 'Invoice 2',
+        date: Date.now(),
+        purchase_id: '123457',
+        amount: 50.50,
+        items: [
+          {
+            name: 'chair',
+            price: 50.50
+          }
+        ]
+
       }
     ]
   }
@@ -64,7 +76,7 @@ const RecordTable = (props) => {
   let state = RecordContext.useState()
   let dispatch = RecordContext.useDispatch()
 
-  let templates = readTemplateFiles()
+  let templates = RecordParser.readTemplateFiles()
   let options = templates.map((t, i) => {return t.name})
 
   const [selectedIndex, setSelectedIndex] = useState(0)
@@ -75,10 +87,8 @@ const RecordTable = (props) => {
   useEffect( () => {
       dispatch({type:"update_records", value:fetchRecords(options[selectedIndex])})
       dispatch({type:'update_type', value: options[selectedIndex]})
-      console.log(state.records)
       console.log('updating...')
   }, [dropdownUpdates, recordUpdates])
-
 
   return (
     <div>
@@ -87,94 +97,60 @@ const RecordTable = (props) => {
           setDropdownUpdates(dropdownUpdates + 1)
         }}/>
 
-      {
-        state.records.map((record, i) => {
-          return templates[selectedIndex].layout(record)
-        })
-      }
+        <Button text={`Create new ${options[selectedIndex]}`} to={`/create/${options[selectedIndex]}`} style={{fontSize: '0.8rem', lineHeight: '1rem'}} />
 
       <DynamicTable />
 
     </div>
   )
-
 }
 
-const recursiveKeyFinder = (obj, previousKey='') => {
-  let keys = []
-  let values = []
-  Object.keys(obj).forEach((key, index) => {
-    console.log(typeof obj[key])
-    switch(typeof obj[key]){
-      case 'string':
-        keys.push(previousKey+key)
-        values.push(obj[key])
-        break;
-      case 'boolean':
-        keys.push(previousKey+key)
-        values.push(obj[key])
-        break;
-      case 'number':
-        keys.push(previousKey+key)
-        values.push(obj[key])
-        break;
-      case 'object':
-        if(obj[key] instanceof Array){
-          keys.push(previousKey+key)
-          values.push(obj[key])
-        }
-        else if(obj[key] instanceof Object){
-          let keyvalues = recursiveKeyFinder(obj[key], key)
-          keys.push(...keyvalues.keys)
-          values.push(...keyvalues.values)
-        }
-        break;
-      default:
-        console.log('error')
-    }
-  })
-  return {keys:keys, values:values}
-}
 
-const generateRowsAndColumns = (type, data) => {
-
-    console.log(data, type)
+const generateRowsAndColumns = (type, data, dispatch) => {
     let rows = []
 
     if(data.length === 0 || type.length === 0)
-      rows.push(['No data available'])
+      rows.push(<tr key={'000'}><td>No data available</td></tr>)
     else{
-      //let structure = require(`../templates/${type.replace(/\s/g,'')}.js`).default.structure
-      //console.log(structure)
-      let keysFound = recursiveKeyFinder(data[0])
-      console.log(keysFound)
 
+      for(let i = 0; i < data.length; i++){
+
+        let keysFound = RecordParser.recursiveKeyFinder(data[i])
+
+        let row = []
+        let headerRow = []
+        if(i === 0){
+
+          for(let j = 0; j < keysFound.keys.length; j++){
+
+            headerRow.push( <td key={j.toString()+'_'+i.toString()} className="table-cell">{keysFound.keys[j]}</td> )
+
+            if(j+1 === keysFound.keys.length)
+              headerRow.push(<td key={uuidv4()} className="table-cell"> </td>)
+          }
+          rows.push(<tr key={uuidv4()} className="row header">{headerRow}</tr>)
+        }
+        for(let j = 0; j < keysFound.keys.length; j++){
+
+          let classname = i % 2 === 0 ? 'table-cell' : 'table-cell odd'
+
+          if(typeof keysFound.values[j] !== "object")
+            row.push(<td key={i.toString()+'_'+j.toString()} className={classname}>{keysFound.values[j]}</td>)
+          else
+            row.push(<td key={i.toString()+'_'+j.toString()} className={classname}>Data Object</td>)
+
+          if(j+1 === keysFound.keys.length){
+            row.push(<td key={uuidv4()} className={classname}><NavLink to={`/view/${data[i].id}`} onClick={()=>{
+              dispatch({type: 'update_record', value: data[i]})
+            }}><u> View </u></NavLink></td>)
+          }
+
+        }
+        rows.push(<tr key={uuidv4()} className="row body">{row}</tr>)
+      }
 
     }
     return rows
-
-
-  // console.log(data)
-  // let rows = []
-  //
-  // if(data.length === 0)
-  //   rows.push(['No data available'])
-  // else{
-  //   let headerRow = []
-  //   Object.keys(data[0]).forEach((key,index) => {
-  //       if(typeof data[0][key] == "object")
-  //       headerRow.push(key)
-  //   })
-  //   rows.push(headerRow)
-  //   for(let i = 0; i < data.length; i++){
-  //     let row = []
-  //     Object.keys(data[i]).forEach((key,index) => {
-  //       row.push(data[i][key])
-  //     })
-  //     rows.push(row)
-  //   }
-  // }
-  // return rows
 }
 
 
@@ -182,42 +158,20 @@ const generateRowsAndColumns = (type, data) => {
 const DynamicTable = () => {
 
   let state = RecordContext.useState()
-  let dispatch = RecordContext.useDispatch()
+  let dispatch = UserContext.useDispatch()
   const [rows, setRows] = useState([])
-  const [rowUpdates, setRowUpdates] = useState(0)
 
   useEffect(()=>{
-    setRows(generateRowsAndColumns(state.type, state.records))
-    console.log(rows)
+    setRows(generateRowsAndColumns(state.type, state.records, dispatch))
   }, [state.records, state.type])
 
-  let data = {
-    rows: [],
-    cols: []
-  }
-
-  for(let i = 0; i < rows.length; i++){
-    console.log(rows[i])
-
-  }
-
-
-
   return (
-    <div>
-      hi
-    </div>
+    <table>
+      <tbody>
+        {rows}
+      </tbody>
+    </table>
   )
-
-
 }
 
 export default RecordTable
-
-
-/*
-  It should display a dropdown of which type of Records to show
-  The table should display the last 50 records of selected type(with pagination)
-  The table should update based on the type of record available
-
-*/

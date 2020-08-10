@@ -1,23 +1,17 @@
 import React from 'react'
+import {v4 as uuidv4} from 'uuid'
 
 /*
-  Valid data types:
-    string
-    number
-    timestamp
-    arrays/objects
-
   Notice the configuration file is imported for the layout, for company details
 */
 
 const Invoice2 = {
 
-  //Name of object, case sensitive, spaces OK
-    name : "Invoice2",
+  //Name of template, human readable form
+  //Should match file name, with exception of spaces/whitespace
+    name : "Invoice 2",
 
-
-    structure: {
-      purchase: {
+    creation:{
         date: 'timestamp',
         purchase_id: 'string',
         amount: 'number',
@@ -27,13 +21,11 @@ const Invoice2 = {
             price: 'number'
           }
         ]
-      }
     },
-
 
     layout: (props) => {
       return (
-        <div key={props.id}>
+        <div key={uuidv4()}>
           hello this is my layout for invoice 2 <br/>
           you bought ${props.purchase.amount} on {props.purchase.date}
         </div>
