@@ -131,8 +131,8 @@ const ArrayDataForm = (props) => {
 
   const newBlock = (i, obj) => {
     return (
-      <div key={props.name+i}>
-        <ObjectDataForm  template={props.template}  level={props.level}   index={i}
+      <div key={props.name+i} className="item-wrapper" >
+        <ObjectDataForm className="array-data" template={props.template}  level={props.level}   index={i}
        updateParent={(key, val, index)=>{
          let temp = [...state]
          temp[index] = {...temp[index], [key]: val[key]}
@@ -145,7 +145,7 @@ const ArrayDataForm = (props) => {
        {
          i !== 0 ?
 
-           <div onClick={(e)=>{
+           <div className="delete-button" onClick={(e)=>{
              const updatedState = [...state]
              updatedState.splice(i, 1)
              setState(updatedState)
@@ -177,7 +177,7 @@ const ArrayDataForm = (props) => {
       </div>
 
       <div className='array-items-button'>
-        <Button text={`Add ${props.key2}`}  onClick={ ()=> {
+        <Button text={`Add ${props.key2}`}  size={'small'} onClick={ ()=> {
           addBlockToState(state.length)
         }} />
       </div>
@@ -206,7 +206,7 @@ const DataInput = (props) => {
   )
 
   for(let j = 0; j < props.level; j++)
-    inputDiv = <div style={{marginLeft: '2rem', marginTop:'1rem'}}> {inputDiv} </div>
+    inputDiv = <div style={{marginLeft: '1.4rem', marginTop:'0.7rem'}}> {inputDiv} </div>
 
   return inputDiv
 }

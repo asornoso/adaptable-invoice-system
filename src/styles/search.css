@@ -110,6 +110,35 @@
   grid-row-end: 3;
 }
 
+.item-wrapper{
+  display:grid;
+  grid-template-columns: 80% 20%;
+  grid-template-rows: 100%;
+  border-top: solid 1px black;
+  padding-bottom:1rem;
+}
+
+.array-data{
+  justify-self: center;
+  align-self: center;
+  grid-column-start: 1;
+  grid-column-end: 2;
+  grid-row-start: 1;
+  grid-row-end: 2;
+
+}
+
+.delete-button{
+  justify-self: center;
+  align-self: center;
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 1;
+  grid-row-end: 2;
+  border: solid 1px black;
+  padding: 0.3rem;
+}
+
 .array-items-button .button{
   margin: 1rem;
 }
