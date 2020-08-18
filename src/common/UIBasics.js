@@ -36,9 +36,6 @@ const InputV2 = (props) => {
   return (
     <div className={`inputv2 input-${size}`}>
     {
-      props.value ?
-        <input ref={props.useRef} type={type} id={props.name.toLowerCase()} value={props.value} placeholder={props.name.toUpperCase()} onChange={props.onChange}/>
-      :
         <input ref={props.useRef} type={type} id={props.name.toLowerCase()} placeholder={props.name.toUpperCase()} onChange={props.onChange}/>
     }
     </div>
