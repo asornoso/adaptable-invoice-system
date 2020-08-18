@@ -6,7 +6,7 @@ const configuration = {
   },
   companyInfo: {
     brand: {
-      name: "Adaptive Invoicing System",
+      name: "Adaptive Records System",
       logo: "logo.png", //Logo should be placed in /src/resources
       slogan: "The best invoicing system"
     },

@@ -1,4 +1,4 @@
-import React, {useState, useEffect,  } from 'react'
+import React, {useState, useEffect} from 'react'
 import {NavLink} from 'react-router-dom'
 import { Dropdown, Button} from "../common/UIBasics.js"
 import {RecordContext} from '../pages/SearchPage.js'
@@ -73,7 +73,6 @@ const fetchRecords = (type) => {
 
 const RecordTable = (props) => {
 
-  let state = RecordContext.useState()
   let dispatch = RecordContext.useDispatch()
 
   let templates = RecordParser.readTemplateFiles()
@@ -81,14 +80,13 @@ const RecordTable = (props) => {
 
   const [selectedIndex, setSelectedIndex] = useState(0)
 
-  const [recordUpdates, setRecordUpdates] = useState(0)
   const [dropdownUpdates, setDropdownUpdates] = useState(0)
 
   useEffect( () => {
       dispatch({type:"update_records", value:fetchRecords(options[selectedIndex])})
       dispatch({type:'update_type', value: options[selectedIndex]})
       console.log('updating...')
-  }, [dropdownUpdates, recordUpdates])
+  }, [dropdownUpdates])
 
   return (
     <div>

@@ -5,13 +5,12 @@ import RecordParser from '../common/RecordParser.js'
 
 const ViewPage = () => {
   let state = UserContext.useState()
-  let dispatch = UserContext.useDispatch()
   const [template, setTemplate] = useState(undefined)
 
   useEffect(()=>{
     if(state.record)
       setTemplate(RecordParser.findTemplate(state.record.sys_info_record_type))
-      
+
   }, [state])
 
   return (

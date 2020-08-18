@@ -59,7 +59,7 @@ const LoginPage = () => {
 
         <div className="form">
           <form onSubmit={(e) => {submit(email, password, e) }}>
-            <Input name="email"type='email' onChange={e => setEmail(e.target.value)} />
+            <Input name="email" type='email' onChange={e => setEmail(e.target.value)} />
             <Input name="password" type='password' onChange={e => setPassword(e.target.value)}/>
             <Button text='Sign in' />
           </form>

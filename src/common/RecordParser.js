@@ -29,7 +29,7 @@ class RecordParser  {
     let keys = []
     let values = []
     Object.keys(obj).forEach((key, index) => {
-      if(key == 'sys_info_record_type')
+      if(key === 'sys_info_record_type')
         return;
 
       let name = previousKey.length > 0 ? previousKey+'_'+key : key
@@ -68,7 +68,7 @@ class RecordParser  {
   objectToKeysArray = (obj) => {
     let keys = []
     Object.keys(obj).forEach((key, index) => {
-      if(key == 'sys_info_record_type')
+      if(key === 'sys_info_record_type')
         return;
 
       switch(typeof obj[key]){

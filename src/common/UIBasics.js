@@ -29,6 +29,22 @@ const Input = (props) => {
   )
 }
 
+const InputV2 = (props) => {
+  const size = props.size ? props.size : 'medium'
+  const type = props.type ? props.type : 'text'
+
+  return (
+    <div className={`inputv2 input-${size}`}>
+    {
+      props.value ?
+        <input ref={props.useRef} type={type} id={props.name.toLowerCase()} value={props.value} placeholder={props.name.toUpperCase()} onChange={props.onChange}/>
+      :
+        <input ref={props.useRef} type={type} id={props.name.toLowerCase()} placeholder={props.name.toUpperCase()} onChange={props.onChange}/>
+    }
+    </div>
+  )
+}
+
 const FloatingButton = (props) => {
   const size = props.size ? props.size : 'medium'
 
@@ -64,4 +80,4 @@ const Dropdown = (props) => {
 
 }
 
-export { Button, Input, FloatingButton, Dropdown}
+export { Button, Input, InputV2,  FloatingButton, Dropdown}

@@ -3,7 +3,6 @@ import {Input, FloatingButton} from '../common/UIBasics.js'
 import RecordTable from '../common/RecordTable.js'
 import '../styles/search.css'
 import CustomContext from '../customContext.js'
-
 import configuration from '../configuration.js'
 
 const initialState = {
