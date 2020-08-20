@@ -1,16 +1,18 @@
 import React, {useState, useEffect} from 'react'
-import { InputV2, FloatingButton, Button} from '../common/UIBasics.js'
+import { InputV2, Button} from '../common/UIBasics.js'
+import {id16} from '@jsweb/randkey'
 
 
 //A dataform for objects
 const ObjectDataForm = (props) => {
-  const [state, setState] = useState(copyWithUndefinedValues(props.template))
+  const [state, setState] = useState(copyWithUndefinedValues(props.template, props.hideID))
+  let keys = Object.keys(props.template)
 
-  let formElements, keys
+  let formElements = []
 
-  formElements = []
-  keys = Object.keys(props.template)
   for(let i =0; i < keys.length; i++){
+
+
     const key = keys[i]
     const name = props.name ? props.key2+' '+key : key
 
@@ -18,7 +20,7 @@ const ObjectDataForm = (props) => {
 
       let o = props.template[key][0]
       formElements.push(
-        <ArrayDataForm template={o} key={name} name={name} key2={key} level={props.level + 1} index={0}
+        <ArrayDataForm template={o} key={name} name={name} key2={key} level={props.level + 1} index={0} hideID={props.hideID}
         updateParent={(key, val)=>{
           const newState = deepCopyObj(state)
           newState[key]= val
@@ -34,7 +36,7 @@ const ObjectDataForm = (props) => {
     else if(props.template[key] instanceof Object ){
 
       formElements.push(
-        <ObjectDataForm template={props.template[key]} key={name} name={name} key2={key} level={props.level + 1}
+        <ObjectDataForm template={props.template[key]} key={name} name={name} key2={key} level={props.level + 1} hideID={props.hideID}
         updateParent={ (key, val) => {
           const newState = deepCopyObj(state)
           newState[key] = val
@@ -45,6 +47,9 @@ const ObjectDataForm = (props) => {
             props.updateContainer(key, newState)
         }}/>
       )
+    }
+    else if(keys[i] === 'id' && props.hideID){
+      continue
     }
     else{
         formElements.push(
@@ -77,7 +82,8 @@ const ArrayDataForm = (props) => {
   const [state, setState] = useState([copyWithUndefinedValues(props.template)])
 
   useEffect(()=>{
-    addBlockToState(props.index)
+    if(state.length === 0)
+      addBlockToState(props.index)
   }, [])
 
   const newBlock = (i, obj) => {
@@ -144,20 +150,18 @@ const ArrayDataForm = (props) => {
 
 
 const DataInput = (props) => {
-  const [value, setValue] = useState()
 
   let inputDiv =(
     <form  className='input-field'>
       {props.name}
       <InputV2 type={props.type} name={props.name}  value={props.value} onChange={(e) => {
-        setValue(e.target.value)
         props.update(e.target.value)
       }}/>
     </form>
   )
 
   for(let j = 0; j < props.level; j++)
-    inputDiv = <div style={{marginLeft: '1.4rem', marginTop:'0.7rem'}}> {inputDiv} </div>
+    inputDiv = <div style={{marginLeft: '1.2rem', marginTop:'0.6rem'}}> {inputDiv} </div>
 
   return inputDiv
 }
@@ -167,7 +171,7 @@ const DataInput = (props) => {
 
 //copy all properties to new object, with values equal to undefined
 //This assists with input validation
-const copyWithUndefinedValues = (obj) => {
+const copyWithUndefinedValues = (obj, autoID) => {
   let newObj = {}
   let keys = Object.keys(obj)
 
@@ -177,6 +181,8 @@ const copyWithUndefinedValues = (obj) => {
       newObj[keys[i]][0] =  copyWithUndefinedValues( obj[keys[i]][0] )
     } else if( obj[keys[i]] instanceof Object)
       newObj[keys[i]] = copyWithUndefinedValues(obj[keys[i]])
+    else if(keys[i] === 'id')
+      newObj[keys[i]] = id16()
     else
       newObj[keys[i]] = undefined
   }

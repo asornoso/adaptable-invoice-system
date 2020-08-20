@@ -11,7 +11,7 @@ const Invoice2 = {
   //Should match file name, with exception of spaces/whitespace
     name : "Invoice 2",
 
-    creation:{
+    jsonTemplate:{
         date: 'timestamp',
         purchase_id: 'string',
         amount: 'number',

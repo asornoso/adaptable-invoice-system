@@ -46,9 +46,9 @@ function App() {
       <HashRouter>
         <UserContext.Provider>
           <Route exact path='/' component={LoginPage}/>
-          <Route exact path='/search' component={SearchPage}/>
-          <Route exact path='/create/:type' component={CreatePage}/>
-          <Route exact path='/view/:id' component={ViewPage}/>
+          <Route  path='/search' component={SearchPage}/>
+          <Route  path='/create/:type' component={CreatePage}/>
+          <Route  path='/view/:id' component={ViewPage}/>
         </UserContext.Provider>
       </HashRouter>
     </div>

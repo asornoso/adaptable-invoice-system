@@ -1,11 +1,12 @@
 import React, {useState, useEffect} from 'react'
 import {useHistory} from 'react-router-dom'
 import RecordParser from '../common/RecordParser.js'
-import { InputV2, FloatingButton, Button} from '../common/UIBasics.js'
+import {  FloatingButton, Button} from '../common/UIBasics.js'
 import '../styles/search.css'
 import configuration from '../configuration.js'
 import {ObjectDataForm, deepCopyObj, copyWithUndefinedValues, validateForm} from '../common/DynamicObjectComponents.js'
 
+import {UserContext} from '../App.js'
 
 const CreatePage = (props) => {
   let template = RecordParser.findTemplate(props.match.params.type)
@@ -13,8 +14,9 @@ const CreatePage = (props) => {
   const images = require.context('../resources', true)
   const logo = images(`./${configuration.companyInfo.brand.logo}`)
 
-  const [inputState, setInputState] = useState(copyWithUndefinedValues(template.creation))
+  const [inputState, setInputState] = useState(copyWithUndefinedValues(template.jsonTemplate))
   const [update, setUpdate] = useState(0)
+  const state = UserContext.useState()
 
 
   return (
@@ -34,7 +36,7 @@ const CreatePage = (props) => {
         <h2> <u> New {template.name} </u> </h2>
         <div className='inputForm'>
 
-        <ObjectDataForm template={template.creation} level={0}
+        <ObjectDataForm template={template.jsonTemplate} level={0} hideID={template.autoID}
           updateContainer={(key, val) => {
             let newState = deepCopyObj(inputState)
             newState[key] = val[key]
@@ -45,9 +47,15 @@ const CreatePage = (props) => {
 
         </div>
         <Button text={"Create"} onClick={()=>{
-          console.log(validateForm(inputState, template.creation))
-          if(validateForm(inputState, template.creation)){
+          console.log(inputState)
+          console.log(validateForm(inputState, template.jsonTemplate))
+          if(validateForm(inputState, template.jsonTemplate)){
             console.log('submit form to save')
+            state.firebase.createRecord(template.name, inputState)
+              .then( result => {
+                console.log(result)
+              })
+
           }
         }}/>
       </div>

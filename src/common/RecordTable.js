@@ -3,75 +3,12 @@ import {NavLink} from 'react-router-dom'
 import { Dropdown, Button} from "../common/UIBasics.js"
 import {RecordContext} from '../pages/SearchPage.js'
 import {UserContext} from '../App.js'
-import {v4 as uuidv4} from 'uuid'
 import RecordParser from './RecordParser.js'
 
 
-const fetchRecords = (type) => {
-  if(type === 'Default Invoice')
-  {
-    return [
-      {
-        sys_info_record_type: 'Default Invoice',
-        id: '123456789',
-        customer: {
-          name: 'name1',
-          id: '12345',
-        },
-        purchase: {
-          date: Date.now(),
-          purchase_id: '123456',
-          amount: 50.50,
-          items: [
-            {
-              name: 'chair',
-              price: 50.50
-            }
-          ]
-        }
-      },
-      {
-        sys_info_record_type: 'Default Invoice',
-        id: '12345691',
-        customer: {
-          name: 'name1',
-          id: '12345',
-        },
-        purchase: {
-          date: Date.now(),
-          purchase_id: '123456',
-          amount: 50.50,
-          items: [
-            {
-              name: 'chair',
-              price: 50.50
-            }
-          ]
-        }
-      }
-    ]
-  }
-  else{
-    return [
-      {
-        sys_info_record_type: 'Invoice 2',
-        date: Date.now(),
-        purchase_id: '123457',
-        amount: 50.50,
-        items: [
-          {
-            name: 'chair',
-            price: 50.50
-          }
-        ]
-
-      }
-    ]
-  }
-}
-
-
 const RecordTable = (props) => {
+  let state = UserContext.useState()
+
 
   let dispatch = RecordContext.useDispatch()
 
@@ -82,10 +19,29 @@ const RecordTable = (props) => {
 
   const [dropdownUpdates, setDropdownUpdates] = useState(0)
 
-  useEffect( () => {
-      dispatch({type:"update_records", value:fetchRecords(options[selectedIndex])})
+  const fetchRecords = () =>{
+    state.firebase.getRecordsByType(options[selectedIndex]).then( records => {
+      console.log(records)
+
+      dispatch({type:"update_records", value: records})
       dispatch({type:'update_type', value: options[selectedIndex]})
       console.log('updating...')
+    })
+  }
+
+  useEffect( () => {
+
+
+      if(state.firebase.db !== undefined){
+        fetchRecords()
+      }
+      else{
+        setTimeout(()=>{
+          fetchRecords()
+        }, 100)
+      }
+
+
   }, [dropdownUpdates])
 
   return (
@@ -96,9 +52,9 @@ const RecordTable = (props) => {
         }}/>
 
         <Button text={`Create new ${options[selectedIndex]}`} to={`/create/${options[selectedIndex]}`} style={{fontSize: '0.8rem', lineHeight: '1rem'}} />
-
-      <DynamicTable />
-
+{
+     <DynamicTable />
+}
     </div>
   )
 }
@@ -124,9 +80,9 @@ const generateRowsAndColumns = (type, data, dispatch) => {
             headerRow.push( <td key={j.toString()+'_'+i.toString()} className="table-cell">{keysFound.keys[j]}</td> )
 
             if(j+1 === keysFound.keys.length)
-              headerRow.push(<td key={uuidv4()} className="table-cell"> </td>)
+              headerRow.push(<td key={'header'+j+keysFound.keys[j]} className="table-cell"> </td>)
           }
-          rows.push(<tr key={uuidv4()} className="row header">{headerRow}</tr>)
+          rows.push(<tr key={'headerrow'+i} className="row header">{headerRow}</tr>)
         }
         for(let j = 0; j < keysFound.keys.length; j++){
 
@@ -138,13 +94,13 @@ const generateRowsAndColumns = (type, data, dispatch) => {
             row.push(<td key={i.toString()+'_'+j.toString()} className={classname}>Data Object</td>)
 
           if(j+1 === keysFound.keys.length){
-            row.push(<td key={uuidv4()} className={classname}><NavLink to={`/view/${data[i].id}`} onClick={()=>{
+            row.push(<td key={'row'+j+keysFound[j]} className={classname}><NavLink to={`/view/${data[i].id}`} onClick={()=>{
               dispatch({type: 'update_record', value: data[i]})
             }}><u> View </u></NavLink></td>)
           }
 
         }
-        rows.push(<tr key={uuidv4()} className="row body">{row}</tr>)
+        rows.push(<tr key={'rowbody'+i} className="row body">{row}</tr>)
       }
 
     }
