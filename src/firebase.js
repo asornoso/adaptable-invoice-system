@@ -43,7 +43,6 @@ class Firebase {
     }
 
     getRecordsByType = (type) => {
-      console.log(this)
       return new Promise((res, rej) => {
         this.app.firestore().collection(type).get()
           .then(results => {

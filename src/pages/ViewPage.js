@@ -8,8 +8,10 @@ const ViewPage = () => {
   const [template, setTemplate] = useState(undefined)
 
   useEffect(()=>{
-    if(state.record)
+    if(state.record !== undefined)
       setTemplate(RecordParser.findTemplate(state.record.sys_info_record_type))
+
+    console.log(state)
 
   }, [state])
 
