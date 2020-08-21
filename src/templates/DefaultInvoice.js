@@ -35,6 +35,10 @@ const DefaultInvoice = {
     },
 
     layout: (props) => {
+      console.log(props)
+      if(props === undefined || Object.keys(props).length === 0 )
+        return (<div>No props passed to layout</div>)
+
       return (
         <div>
           hello this is my layout for default invoice<br/>

@@ -10,9 +10,11 @@ const Invoice2 = {
   //Name of template, human readable form
   //Should match file name, with exception of spaces/whitespace
     name : "Invoice 2",
+    autoID: true,
 
     jsonTemplate:{
-        date: 'timestamp',
+        id: 'string',
+        date: 'date',
         purchase_id: 'string',
         amount: 'number',
         items: [
@@ -27,7 +29,7 @@ const Invoice2 = {
       return (
         <div key={uuidv4()}>
           hello this is my layout for invoice 2 <br/>
-          you bought ${props.purchase.amount} on {props.purchase.date}
+          you bought ${props.amount} on {props.date}
         </div>
       )
     }
