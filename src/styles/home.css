@@ -1,0 +1,80 @@
+.base-container{
+  width:100vw;
+  height:100vh;
+  min-height:920px;
+  min-width: 920px;
+
+  display: grid;
+  grid-template-columns: 12% 80% 8%;
+  grid-template-rows: 12% 88%;
+}
+
+.logo-container{
+  justify-self: center;
+  align-self: center;
+  grid-column-start: 1;
+  grid-column-end: 2;
+  grid-row-start: 1;
+  grid-row-end: 2;
+}
+
+.logo{
+  margin: 1rem;
+  width: auto;
+  height: 5.5rem;
+}
+
+.top-container{
+  justify-self: center;
+  align-self: center;
+  grid-column-start: 1;
+  grid-column-end: 3;
+  grid-row-start: 1;
+  grid-row-end: 2;
+}
+
+.records{
+  justify-self: center;
+  align-self: top;
+  grid-column-start: 1;
+  grid-column-end: 3;
+  grid-row-start: 2;
+  grid-row-end: 3;
+
+}
+
+.record-grid{
+  display: grid;
+  grid-template-columns:  50% 50%;
+  grid-template-rows: 20% 80%;
+}
+
+.record-head-left{
+  justify-self: left;
+  align-self: center;
+  grid-column-start: 1;
+  grid-column-end: 2;
+  grid-row-start: 1;
+  grid-row-end: 2;
+  min-height:4rem;
+
+}
+.record-head-right{
+  justify-self: right;
+  align-self: center;
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 1;
+  grid-row-end: 2;
+  min-height:4rem;
+
+}
+
+.record-body{
+  justify-self: center;
+  align-self: top;
+  grid-column-start: 1;
+  grid-column-end: 3;
+  grid-row-start: 2;
+  grid-row-end: 3;
+}

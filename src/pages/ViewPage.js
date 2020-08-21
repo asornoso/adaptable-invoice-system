@@ -21,9 +21,7 @@ const LayoutComponent = () => {
     if(state.selected !== undefined){
       let t = RecordParser.findTemplate(state.type)
       setTemplate(t)
-
     }
-
   }, [])
 
   return (

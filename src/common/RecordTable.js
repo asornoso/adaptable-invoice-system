@@ -40,18 +40,21 @@ const RecordTable = (props) => {
   }, [dropdownUpdates])
 
   return (
-    <div>
-      <Dropdown  size='medium' options={options} onChange={(val)=>{
-          setSelectedIndex(val)
-          dispatch({type: 'update_type', value: options[val]})
-          setDropdownUpdates(dropdownUpdates + 1)
-        }}/>
-
-        <Button text={`Create new ${options[selectedIndex]}`} to={`/create/${options[selectedIndex]}`} style={{fontSize: '0.8rem', lineHeight: '1rem'}} />
-
-     <DynamicTable />
-
-    </div>
+    <div className='record-grid'>
+      <div className='record-head-left'>
+        <Dropdown  size='medium' options={options} onChange={(val)=>{
+            setSelectedIndex(val)
+            dispatch({type: 'update_type', value: options[val]})
+            setDropdownUpdates(dropdownUpdates + 1)
+          }}/>
+      </div>
+      <div className='record-head-right'>
+        <Button text={`Add Record`} to={`/create/${options[selectedIndex]}`} style={{'margin':'0'}} size='medium'/>
+      </div>
+      <div className='record-body'>
+        <DynamicTable />
+      </div>
+   </div>
   )
 }
 

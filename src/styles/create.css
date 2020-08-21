@@ -5,7 +5,7 @@
   min-width: 920px;
 
   display: grid;
-  grid-template-columns: 12% 80% 8%;
+  grid-template-columns: 12% 88%;
   grid-template-rows: 10% 90%;
 }
 
@@ -24,58 +24,27 @@
   height: 5.5rem;
 }
 
-.search-container{
-  justify-self: center;
-  align-self: center;
-  grid-column-start: 2;
-  grid-column-end: 3;
-  grid-row-start: 1;
-  grid-row-end: 2;
-
-  display:grid;
-  grid-template-columns: 80% 20%;
-  grid-template-rows: 100%;
-}
-
-.search-container .logo {
+.head{
   justify-self: center;
   align-self: center;
   grid-column-start: 1;
-  grid-column-end: 2;
-  grid-row-start: 1;
-  grid-row-end: 2;
-}
-
-.search-container .search-button{
-  justify-self: center;
-  align-self: center;
-  grid-column-start: 2;
   grid-column-end: 3;
   grid-row-start: 1;
   grid-row-end: 2;
 }
 
-
-
-.search-container{
-  justify-self: center;
-  align-self: center;
-  grid-column-start: 2;
-  grid-column-end: 3;
-  grid-row-start: 1;
-  grid-row-end: 2;
+.head  *{
+  padding-left:1rem;
+  padding-right: 1rem;
 }
 
-
-.records{
+.record-form{
   justify-self: center;
   align-self: top;
-  grid-column-start: 2;
+  grid-column-start: 1;
   grid-column-end: 3;
   grid-row-start: 2;
   grid-row-end: 3;
-
-
 }
 
 .array-item-container{
@@ -112,7 +81,7 @@
 
 .item-wrapper{
   display:grid;
-  grid-template-columns: 80% 20%;
+  grid-template-columns: 85% 15%;
   grid-template-rows: 100%;
   border-top: solid 1px black;
   padding-bottom:1rem;
@@ -144,7 +113,7 @@
 }
 
 .inputForm{
-  width:50vw;
+  width:60vw;
 
 }
 

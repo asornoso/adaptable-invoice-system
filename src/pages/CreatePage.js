@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 import {useHistory} from 'react-router-dom'
 import RecordParser from '../common/RecordParser.js'
 import {  FloatingButton, Button} from '../common/UIBasics.js'
-import '../styles/search.css'
+import '../styles/create.css'
 import configuration from '../configuration.js'
 import {ObjectDataForm, deepCopyObj, copyWithUndefinedValues, validateForm} from '../common/DynamicObjectComponents.js'
 
@@ -26,38 +26,39 @@ const CreatePage = (props) => {
           <img className='logo' src={logo} alt='logo'/>
       </div>
 
-      <div className="search-container">
 
-        <FloatingButton size='medium' type='back' onClick={()=>{ history.goBack()}} />
-         Print | Edit
+      <div className='head'>
+        <FloatingButton size='medium' type='back' onClick={()=>{ history.goBack()}} /> 
+        <FloatingButton size='medium' type='print' onClick={()=>{ console.log('print')}} />
       </div>
 
-      <div className="records">
+
+      <div className="record-form">
         <h2> <u> New {template.name} </u> </h2>
         <div className='inputForm'>
 
-        <ObjectDataForm template={template.jsonTemplate} level={0} hideID={template.autoID}
-          updateContainer={(key, val) => {
-            let newState = deepCopyObj(inputState)
-            newState[key] = val[key]
-            setInputState(newState)
-            setUpdate(update+1)
-          }}/>
+              <ObjectDataForm template={template.jsonTemplate} level={0} hideID={template.autoID}
+                updateContainer={(key, val) => {
+                  let newState = deepCopyObj(inputState)
+                  newState[key] = val[key]
+                  setInputState(newState)
+                  setUpdate(update+1)
+                }}/>
 
 
         </div>
-        <Button text={"Create"} onClick={()=>{
-          console.log(inputState)
-          console.log(validateForm(inputState, template.jsonTemplate))
-          if(validateForm(inputState, template.jsonTemplate)){
-            console.log('submit form to save')
-            state.firebase.createRecord(template.name, inputState)
-              .then( result => {
-                console.log(result)
-              })
+              <Button text={"Create"} onClick={()=>{
+                console.log(inputState)
+                console.log(validateForm(inputState, template.jsonTemplate))
+                if(validateForm(inputState, template.jsonTemplate)){
+                  console.log('submit form to save')
+                  state.firebase.createRecord(template.name, inputState)
+                    .then( result => {
+                      console.log(result)
+                    })
 
-          }
-        }}/>
+                }
+              }}/>
       </div>
 
     </div>

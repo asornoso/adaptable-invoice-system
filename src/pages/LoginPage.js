@@ -17,7 +17,7 @@ const submit = ( email, password,e ) => {
       dispatch({type:'update_email', value: data.user.email})
       dispatch({type:'update_name', value: data.user.displayName})
 
-      history.push('/search')
+      history.push('/home')
 
     }).catch( error => {
       console.log(error)

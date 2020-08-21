@@ -1,19 +1,23 @@
-import React from 'react'
+import React, {useEffect} from 'react'
+import { useHistory} from "react-router-dom"
 import {Input, FloatingButton} from '../common/UIBasics.js'
 import RecordTable from '../common/RecordTable.js'
-import '../styles/search.css'
+import '../styles/home.css'
 import configuration from '../configuration.js'
 import {RecordContext} from '../App.js'
 
 
 
-const SearchPage = () => {
+const HomePage = () => {
+  let history = useHistory()
+  useEffect(()=>{
 
-
+    if(!sessionStorage.getItem('id'))
+      history.push('/')
+  }, [])
 
   const images = require.context('../resources', true)
   const logo = images(`./${configuration.companyInfo.brand.logo}`)
-
 
   const records = [];
 
@@ -25,20 +29,15 @@ const SearchPage = () => {
             <img className='logo' src={logo} alt='logo'/>
         </div>
 
-        <div className="search-container">
-
-          <Input name="search" type="text" size="large" />
-          <div className="search-button">
-            <FloatingButton type="search" size='medium'/>
-          </div>
+        <div className="top-container">
+          <h2>
+            { configuration.companyInfo.name ? configuration.companyInfo.name : 'View Records'}
+          </h2>
         </div>
 
 
         <div className="records">
-
           <RecordTable data={records}/>
-
-
         </div>
 
       </div>
@@ -46,4 +45,4 @@ const SearchPage = () => {
   )
 }
 
-export default SearchPage
+export default HomePage
