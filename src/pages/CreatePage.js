@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
 import {useHistory} from 'react-router-dom'
 import RecordParser from '../common/RecordParser.js'
 import {  FloatingButton, Button} from '../common/UIBasics.js'
@@ -28,7 +28,7 @@ const CreatePage = (props) => {
 
 
       <div className='head'>
-        <FloatingButton size='medium' type='back' onClick={()=>{ history.goBack()}} /> 
+        <FloatingButton size='medium' type='back' onClick={()=>{ history.goBack()}} />
         <FloatingButton size='medium' type='print' onClick={()=>{ console.log('print')}} />
       </div>
 

@@ -1,17 +1,14 @@
 import React, {useEffect} from 'react'
 import { useHistory} from "react-router-dom"
-import {Input, FloatingButton} from '../common/UIBasics.js'
 import RecordTable from '../common/RecordTable.js'
 import '../styles/home.css'
 import configuration from '../configuration.js'
-import {RecordContext} from '../App.js'
 
 
 
 const HomePage = () => {
   let history = useHistory()
   useEffect(()=>{
-
     if(!sessionStorage.getItem('id'))
       history.push('/')
   }, [])

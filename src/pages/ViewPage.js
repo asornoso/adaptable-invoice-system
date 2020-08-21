@@ -6,8 +6,6 @@ import RecordParser from '../common/RecordParser.js'
 const ViewPage = () => {
   return (
     <div>
-      <div> Print </div>
-      <div> Edit </div>
       <LayoutComponent />
     </div>
   )
@@ -17,6 +15,7 @@ const LayoutComponent = () => {
   let state = RecordContext.useState()
   const [template, setTemplate] = useState(undefined)
   let record= findRecordById(state.selected, state.records)
+  
   useEffect(()=>{
     if(state.selected !== undefined){
       let t = RecordParser.findTemplate(state.type)
