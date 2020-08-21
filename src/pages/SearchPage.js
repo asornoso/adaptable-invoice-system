@@ -2,30 +2,9 @@ import React from 'react'
 import {Input, FloatingButton} from '../common/UIBasics.js'
 import RecordTable from '../common/RecordTable.js'
 import '../styles/search.css'
-import CustomContext from '../customContext.js'
 import configuration from '../configuration.js'
+import {RecordContext} from '../App.js'
 
-const initialState = {
-  records: [],
-  type: "",
-
-}
-
-const reducer = (state, action) => {
-    switch(action.type){
-      case 'update_records': {
-        return {...state, records: action.value}
-      }
-      case 'update_type': {
-        return { ...state, type:  action.value}
-      }
-      default: {
-        throw new Error(`Unhandled action type: ${action.type}`)
-      }
-    }
-}
-
-const RecordContext = new CustomContext(initialState, reducer)
 
 
 const SearchPage = () => {
@@ -39,7 +18,7 @@ const SearchPage = () => {
   const records = [];
 
   return (
-    <RecordContext.Provider>
+    <div>
       <div className="base-container">
 
         <div className="logo-container">
@@ -63,9 +42,8 @@ const SearchPage = () => {
         </div>
 
       </div>
-    </RecordContext.Provider>
+    </div>
   )
 }
 
-export {RecordContext }
 export default SearchPage

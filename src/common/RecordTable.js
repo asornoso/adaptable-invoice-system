@@ -1,8 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import {NavLink} from 'react-router-dom'
 import { Dropdown, Button} from "../common/UIBasics.js"
-import {RecordContext} from '../pages/SearchPage.js'
-import {UserContext} from '../App.js'
+import {UserContext, RecordContext} from '../App.js'
 import RecordParser from './RecordParser.js'
 
 
@@ -36,6 +35,7 @@ const RecordTable = (props) => {
           fetchRecords()
         }, 100)
       }
+      dispatch({type: 'update_type', value: options[selectedIndex]})
 
   }, [dropdownUpdates])
 
@@ -43,6 +43,7 @@ const RecordTable = (props) => {
     <div>
       <Dropdown  size='medium' options={options} onChange={(val)=>{
           setSelectedIndex(val)
+          dispatch({type: 'update_type', value: options[val]})
           setDropdownUpdates(dropdownUpdates + 1)
         }}/>
 
@@ -110,72 +111,28 @@ const generateRowsAndColumns = (type, data, dispatch) => {
           rows.push(<tr key={'headerrow'+i} className="row header">{headerRow}</tr>)
         }
         array.forEach((recordData, j) => {
-          console.log(recordData)
           let classname = i % 2 === 0 ? 'table-cell' : 'table-cell odd'
           row.push(<td key={i.toString()+'_'+j.toString()} className={classname}>{recordData.value}</td>)
 
           if(j+1 === array.length){
             row.push(<td key={'row'+j+recordData.value} className={classname}><NavLink to={`/view/${array[0].value}`} onClick={()=>{
-              dispatch({type: 'update_record', value: data[i]})
-              console.log(data[i])
+              dispatch({type: 'update_selected', value: dataArray[i][0].value})
             }}><u> View </u></NavLink></td>)
           }
         })
         rows.push(<tr key={'rowbody_'+i} className="row body">{row}</tr>)
-
-
-
       })
 
-/*
-
-      for(let i = 0; i < data.length; i++){
-        let keys = Object.keys(data[i])
-        keys.sort()
-        let row = []
-        let headerRow = []
-        if(i===0){
-          let j = 0
-          for(j = 0; j < keys.length; j++){
-            headerRow.push( <td key={j.toString()+'_'+i.toString()} className="table-cell">{keys[j]}</td> )
-          }
-          headerRow.push(<td key={'header'+j+keys[j]} className="table-cell"> </td>)
-          rows.push(<tr key={'headerrow'+i} className="row header">{headerRow}</tr>)
-        }
-        for(let j = 0; j < keys.length; j++){
-
-          let classname = i % 2 === 0 ? 'table-cell' : 'table-cell odd'
-
-          if(typeof data[i][keys[j]] !== "object")
-            row.push(<td key={i.toString()+'_'+j.toString()} className={classname}>{data[i][keys[j]]}</td>)
-          else
-            row.push(<td key={i.toString()+'_'+j.toString()} className={classname}>Data Object</td>)
-
-          if(j+1 === keys.length){
-            row.push(<td key={'row'+j+keys[j]} className={classname}><NavLink to={`/view/${data[i].id}`} onClick={()=>{
-              dispatch({type: 'update_record', value: data[i]})
-              console.log(data[i])
-            }}><u> View </u></NavLink></td>)
-          }
-
-        }
-        rows.push(<tr key={'rowbody'+i} className="row body">{row}</tr>)
-      }
-
-*/
-
-
-
     }
+
     return rows
 }
-
 
 
 const DynamicTable = () => {
 
   let state = RecordContext.useState()
-  let dispatch = UserContext.useDispatch()
+  let dispatch = RecordContext.useDispatch()
   const [rows, setRows] = useState([])
 
   useEffect(()=>{

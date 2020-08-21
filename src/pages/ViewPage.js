@@ -1,24 +1,36 @@
 import React, {useEffect, useState} from 'react'
-import {UserContext} from '../App.js'
+import {RecordContext} from '../App.js'
 import RecordParser from '../common/RecordParser.js'
 
 
 const ViewPage = () => {
-  let state = UserContext.useState()
+  return (
+    <div>
+      <div> Print </div>
+      <div> Edit </div>
+      <LayoutComponent />
+    </div>
+  )
+}
+
+const LayoutComponent = () => {
+  let state = RecordContext.useState()
   const [template, setTemplate] = useState(undefined)
 
   useEffect(()=>{
-    if(state.record !== undefined)
-      setTemplate(RecordParser.findTemplate(state.record.sys_info_record_type))
+    if(state.selected !== undefined){
+      let t = RecordParser.findTemplate(state.type)
+      console.log(t)
 
-    console.log(state)
+      console.log(state)
+      setTemplate(t)
+    }
+
 
   }, [state])
 
   return (
     <div>
-      <div> Print </div>
-      <div> Edit </div>
       {template ?  template.layout(state.record) : 'No template found'}
     </div>
   )

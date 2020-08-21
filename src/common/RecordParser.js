@@ -19,9 +19,8 @@ class RecordParser  {
 
     for(let i = 0; i < files.length; i++){
       let obj = require(`../templates/${files[i]}`).default
-      if(obj.name === templateName){
+      if(obj.name === templateName)
         return obj
-      }
 
     }
     return {error: 'no such template'}
