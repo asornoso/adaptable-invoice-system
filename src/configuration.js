@@ -1,29 +1,23 @@
 const configuration = {
-  theme:{
-    primaryColor: '#000000',
-    secondaryColor: '#323232',
-    textColor: '#ffffff'
-  },
   companyInfo: {
     brand: {
       name: "Adaptive Records System",
       logo: "logo.png", //Logo should be placed in /src/resources
-      slogan: "The best invoicing system"
+      slogan: "A very adaptable records system"
     },
     //The contact object includes data relevant to your company or business.
-    //If
     contact: {
-      address: "1234 address, city zipcode",
+      streetAddress: "1234 streetName Blvd",
+      stateAddress: "City, State Zipcode",
       phone: "(123) 456-7890",
       fax: "1234567890",
       website: "www.thisismysite.com"
     }
   },
-  //The data javascript object contains a list paths to ES6 classes that serve
-  // as models for the forms and layouts of any records.
   //
   //To create your own data model, your object must include the following properties:
   //name --> Name of this type of data model(Invoice, Incident Report,  B2B Invoice, etc)
+  //jsonTemplate --> a json object that defines the structure of your data
   //layout --> a function that returns a react component that renders your data as needed
   //
   //An invoice object is included by default. View the contents as an example

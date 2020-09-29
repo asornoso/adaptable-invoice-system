@@ -21,16 +21,18 @@ const submit = ( email, password,e ) => {
 
     }).catch( error => {
       console.log(error)
-      console.log('invalid email or password')
+      return true
     })
   }
   else
-    console.log('invalid email or password')
+    return true
 }
 
 const LoginPage = () => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  const [displayError, setError] = useState(false)
+
   state = UserContext.useState()
   dispatch = UserContext.useDispatch()
   history = useHistory()
@@ -55,10 +57,13 @@ const LoginPage = () => {
 
         <div className="title">
               {configuration.companyInfo.brand.name}
+
         </div>
 
         <div className="form">
-          <form onSubmit={(e) => {submit(email, password, e) }}>
+        { displayError && <div> Incorrect Email or Password. Please try again </div>}
+
+          <form onSubmit={(e) => { if(submit(email, password, e)) setError(true) }}>
             <Input name="email" type='email' onChange={e => setEmail(e.target.value)} />
             <Input name="password" type='password' onChange={e => setPassword(e.target.value)}/>
             <Button text='Sign in' />
