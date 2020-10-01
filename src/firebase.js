@@ -3,11 +3,11 @@ import 'firebase/auth'
 import 'firebase/firestore'
 import configuration from './configuration.js'
 
-
 class Firebase {
   constructor(){
+    this.configuration = configuration
 
-    import( `${configuration.firebaseConfigPath}` ).then( config => {
+    import( `${this.configuration.firebaseConfigPath}` ).then( config => {
         app.initializeApp(config.default)
         this.app = app
         this.auth = app.auth()

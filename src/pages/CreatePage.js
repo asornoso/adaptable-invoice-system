@@ -29,7 +29,6 @@ const CreatePage = (props) => {
 
       <div className='head'>
         <FloatingButton size='medium' type='back' onClick={()=>{ history.goBack()}} />
-        <FloatingButton size='medium' type='print' onClick={()=>{ console.log('print')}} />
       </div>
 
 

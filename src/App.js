@@ -1,6 +1,8 @@
 import React from 'react'
 import {HashRouter, Route} from 'react-router-dom'
 import CustomContext from './customContext.js'
+import configuration from './configuration.js'
+
 import Firebase from './firebase.js'
 
 import LoginPage from './pages/LoginPage'

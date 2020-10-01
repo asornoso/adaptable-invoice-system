@@ -28,7 +28,10 @@ const Invoice2 = {
     layout: (props) => {
       return (
         <div key={uuidv4()}>
-          hello this is my layout for invoice 2 <br/>
+          A very simple layout for invoice2 template.<br/>
+          This has no styling or elements(besides a wrapping div)<br/>
+          A template can contain any amount of elements and have its own css file<br/>
+          This is an example of how easy it is to display data using a template <br/>
           you bought ${props.amount} on {props.date}
         </div>
       )
